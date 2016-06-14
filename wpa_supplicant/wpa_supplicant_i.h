@@ -74,7 +74,6 @@ struct wpa_interface {
 	const char *conf_p2p_dev;
 #endif /* CONFIG_P2P */
 
-
 	/**
 	 * ctrl_interface - Control interface parameter
 	 *
