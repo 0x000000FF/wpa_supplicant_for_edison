@@ -83,6 +83,9 @@ static void usage(void)
 #endif /* CONFIG_DBUS */
 	printf("  -v = show version\n"
 	       "  -W = wait for a control interface monitor before starting\n"
+#ifdef CONFIG_P2P
+	       "  -m = Configuration file for the P2P Device interface\n"
+#endif /* CONFIG_P2P */
 	       "  -N = start describing new interface\n");
 
 	printf("example:\n"
@@ -160,7 +163,7 @@ int main(int argc, char *argv[])
 
 	for (;;) {
 		c = getopt(argc, argv,
-			   "b:Bc:C:D:de:f:g:G:hi:I:KLNo:O:p:P:qsTtuvW");
+			   "b:Bc:C:D:de:f:g:G:hi:I:KLm:No:O:p:P:qsTtuvW");
 		if (c < 0)
 			break;
 		switch (c) {
@@ -220,6 +223,11 @@ int main(int argc, char *argv[])
 			license();
 			exitcode = 0;
 			goto out;
+#ifdef CONFIG_P2P
+		case 'm':
+			iface->conf_p2p_dev = optarg;
+			break;
+#endif /* CONFIG_P2P */
 		case 'o':
 			params.override_driver = optarg;
 			break;
@@ -311,7 +319,7 @@ int main(int argc, char *argv[])
 		if (wpa_s->global->p2p == NULL &&
 		    (wpa_s->drv_flags &
 		     WPA_DRIVER_FLAGS_DEDICATED_P2P_DEVICE) &&
-		    wpas_p2p_add_p2pdev_interface(wpa_s) < 0)
+		    wpas_p2p_add_p2pdev_interface(wpa_s, iface->conf_p2p_dev) < 0)
 			exitcode = -1;
 #endif /* CONFIG_P2P */
 	}

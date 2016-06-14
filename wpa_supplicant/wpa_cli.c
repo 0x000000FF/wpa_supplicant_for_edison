@@ -3625,7 +3625,8 @@ static char * wpa_cli_get_default_ifname(void)
 			continue;
 #endif /* _DIRENT_HAVE_D_TYPE */
 		if (os_strcmp(dent->d_name, ".") == 0 ||
-		    os_strcmp(dent->d_name, "..") == 0)
+		    os_strcmp(dent->d_name, "..") == 0 ||
+		    os_strstr(dent->d_name, "p2p"))
 			continue;
 		printf("Selected interface '%s'\n", dent->d_name);
 		ifname = os_strdup(dent->d_name);

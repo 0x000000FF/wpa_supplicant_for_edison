@@ -321,7 +321,7 @@ static int android_pno_start(struct i802_bss *bss,
 			     struct wpa_driver_scan_params *params);
 static int android_pno_stop(struct i802_bss *bss);
 #endif /* ANDROID */
-#ifdef ANDROID_P2P
+#if defined(ANDROID_P2P) && !defined(EDISON_TARGET)
 int wpa_driver_set_p2p_noa(void *priv, u8 count, int start, int duration);
 int wpa_driver_get_p2p_noa(void *priv, u8 *buf, size_t len);
 int wpa_driver_set_p2p_ps(void *priv, int legacy_ps, int opp_ps, int ctwindow);
@@ -10329,7 +10329,7 @@ static int nl80211_set_p2p_powersave(void *priv, int legacy_ps, int opp_ps,
 		   "opp_ps=%d ctwindow=%d)", legacy_ps, opp_ps, ctwindow);
 
 	if (opp_ps != -1 || ctwindow != -1)
-#ifdef ANDROID_P2P
+#if defined(ANDROID_P2P) && !defined(EDISON_TARGET)
 		wpa_driver_set_p2p_ps(priv, legacy_ps, opp_ps, ctwindow);
 #else
 		return -1; /* Not yet supported */
@@ -10832,7 +10832,7 @@ const struct wpa_driver_ops wpa_driver_nl80211_ops = {
 	.update_ft_ies = wpa_driver_nl80211_update_ft_ies,
 	.get_mac_addr = wpa_driver_nl80211_get_macaddr,
 	.get_survey = wpa_driver_nl80211_get_survey,
-#ifdef ANDROID_P2P
+#if defined(ANDROID_P2P) && !defined(EDISON_TARGET)
 	.set_noa = wpa_driver_set_p2p_noa,
 	.get_noa = wpa_driver_get_p2p_noa,
 	.set_ap_wps_ie = wpa_driver_set_ap_wps_p2p_ie,

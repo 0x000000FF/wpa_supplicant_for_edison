@@ -19,7 +19,7 @@ struct wps_event_fail;
 int wpas_p2p_init(struct wpa_global *global, struct wpa_supplicant *wpa_s);
 void wpas_p2p_deinit(struct wpa_supplicant *wpa_s);
 void wpas_p2p_deinit_global(struct wpa_global *global);
-int wpas_p2p_add_p2pdev_interface(struct wpa_supplicant *wpa_s);
+int wpas_p2p_add_p2pdev_interface(struct wpa_supplicant *wpa_s,const char *conf_p2p_dev);
 int wpas_p2p_connect(struct wpa_supplicant *wpa_s, const u8 *peer_addr,
 		     const char *pin, enum p2p_wps_method wps_method,
 		     int persistent_group, int auto_join, int join,
